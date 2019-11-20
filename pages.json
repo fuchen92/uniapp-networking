@@ -1,0 +1,84 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path" : "pages/me/login/login",
+			"style" : {}
+		},
+		{
+			"path": "pages/home/index/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"navigationBarBackgroundColor": "#c30d23"
+			}
+		},
+		{
+		    "path" : "pages/connection/attendees/attendees",
+		    "style" : {
+				"navigationBarTitleText": "人脉"
+			}
+		},
+        {
+            "path" : "pages/discover/plaza/plaza",
+            "style" : {
+				"navigationBarTitleText": "广场"
+			}
+        },
+        {
+            "path" : "pages/chats/message/message",
+            "style" : {
+				"navigationBarTitleText": "消息"
+			}
+        },
+        {
+            "path" : "pages/me/index/index",
+            "style" : {
+				"navigationBarTitleText": "我的"
+			}
+        }
+        
+    ],
+	"globalStyle": {
+		"navigationStyle": "custom"
+	},
+	"tabBar": {
+		"color": "#666666",
+		"selectedColor": "#c30d23",
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "black",
+		"fontSize": "12px",
+		"iconWidth": "30px",
+		"list": [
+			{
+				"pagePath": "pages/home/index/index",
+				"iconPath": "static/tabHome.png",
+				"selectedIconPath": "static/tabHome1.png",
+				"text": "日程"
+			},
+			{
+				"pagePath": "pages/connection/attendees/attendees",
+				"iconPath": "static/tabConnection.png",
+				"selectedIconPath": "static/tabConnection1.png",
+				"text": "人脉"
+			},
+			{
+				"pagePath": "pages/discover/plaza/plaza",
+				"iconPath": "static/tabPlaza.png",
+				"selectedIconPath": "static/tabPlaza1.png",
+				"text": "广场"
+			},
+			{
+				"pagePath": "pages/chats/message/message",
+				"iconPath": "static/tabMsg.png",
+				"selectedIconPath": "static/tabMsg1.png",
+				"text": "消息"
+			},
+			{
+				"pagePath": "pages/me/index/index",
+				"iconPath": "static/tabMe.png",
+				"selectedIconPath": "static/tabMe1.png",
+				"text": "我的"
+			}
+			
+		]
+	}
+}
