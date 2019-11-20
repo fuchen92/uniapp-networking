@@ -1,37 +1,49 @@
 <script>
 	export default {
-		data: function() {
-			return {
-				socket: "socket此时为空",
-				token: "111222333"
-			}
-		},
-		computed: {
-			computedData: function() {
-				return "这是 computed 选项中的字段，证明 App.vue 可以添加 computed 选项"
+		// data: function() {
+		// 	return {
+		// 		socket: "socket此时为空",
+		// 		token: "111222333"
+		// 	}
+		// },
+		// computed: {
+		// 	computedData: function() {
+		// 		return "这是 computed 选项中的字段，证明 App.vue 可以添加 computed 选项"
+		// 	}
+		// },
+		methods: {
+			// print: function() {
+			// 	console.log("这是 methods 选项里面的方法，证明 App.vue 可以添加 methods 选项")
+			// },
+			initSocket: function(token) {
+				console.log("初始化 socket 链接")
+				// const socketUrl = `wss://socialapi.traveldaily.cn/WebSocket/Index?token=${encodeURIComponent(token)}`;
+				this.socket = {
+					onOpen: function() {},
+					onSend: function() {},
+					onMessage: function() {},
+					onClose: function() {}
+				}
 			}
 		},
 		onLaunch: function() {
-			this.print();
+			// this.print();
+			this.initSocket();
 			console.log('App Launch')
 			console.log("在App Launch方法内初始化socket链接")
 		},
 		onShow: function() {
 			console.log(this)
 			console.log(this.computedData)
-			console.log("data 选项里面的 token： " + this.token)
+			// console.log("data 选项里面的 token： " + this.token)
 			console.log('App Show')
 		},
 		onHide: function() {
 			console.log('App Hide')
-		},
-		methods: {
-			print: function() {
-				console.log("这是 methods 选项里面的方法，证明 App.vue 可以添加 methods 选项")
-			}
-		},
+		},		
 		globalData: {
 			lang: uni.getStorageSync('lang') || "zh",
+			socket: ""
 			// eventNo: "68",
 			// localApiDomain: "http://192.168.1.21:89",
 			// apiDomain: "https://socialapi.traveldaily.cn"
