@@ -67,7 +67,7 @@
 	export default {
 		data() {
 			return {
-				lang: 'zh',
+				lang: app.globalData.lang,
 				account: "",
 				valicode: "",
 				isGettedCode: false,
@@ -86,6 +86,10 @@
 				var lang = event.detail.value;
 				this.lang = lang;
 				this.$i18n.locale = lang;
+				app.globalData.lang = lang;
+				uni.setStorageSync("lang", lang);
+				console.log("globalData 里面的lang： " + app.globalData.lang)
+				console.log("storage 里面的lang： " + uni.getStorageSync('lang'))
 			},
 			_validate: function(type) {
 				let { account, valicode } = this;
@@ -135,6 +139,11 @@
 				console.log(this.account)
 				console.log(this.valicode)
 			}
+		},
+		onLoad: function() {
+			// console.log("登录页加载")
+			// console.log("globalData 里面的lang： " + app.globalData.lang)
+			// console.log("storage 里面的lang： " + uni.getStorageSync('lang'))
 		}
 	}
 </script>

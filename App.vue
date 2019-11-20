@@ -1,18 +1,40 @@
 <script>
 	export default {
+		data: function() {
+			return {
+				socket: "socket此时为空",
+				token: "111222333"
+			}
+		},
+		computed: {
+			computedData: function() {
+				return "这是 computed 选项中的字段，证明 App.vue 可以添加 computed 选项"
+			}
+		},
 		onLaunch: function() {
+			this.print();
 			console.log('App Launch')
+			console.log("在App Launch方法内初始化socket链接")
 		},
 		onShow: function() {
+			console.log(this)
+			console.log(this.computedData)
+			console.log("data 选项里面的 token： " + this.token)
 			console.log('App Show')
 		},
 		onHide: function() {
 			console.log('App Hide')
 		},
+		methods: {
+			print: function() {
+				console.log("这是 methods 选项里面的方法，证明 App.vue 可以添加 methods 选项")
+			}
+		},
 		globalData: {
-			lang: "zh",
-			eventNo: "68",
-			
+			lang: uni.getStorageSync('lang') || "zh",
+			// eventNo: "68",
+			// localApiDomain: "http://192.168.1.21:89",
+			// apiDomain: "https://socialapi.traveldaily.cn"
 		}
 	}
 </script>

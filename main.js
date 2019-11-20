@@ -12,7 +12,7 @@ import navBar from "@/components/navBar";
 Vue.use(VueI18n);
 
 const i18n = new VueI18n({
-	locale: "zh",
+	locale: App.globalData.lang,
 	messages: {
 		"zh": LangZh,
 		"en": LangEn
@@ -22,8 +22,11 @@ const i18n = new VueI18n({
 Vue.config.productionTip = false
 
 Vue.component('navBar', navBar)
- 
-Vue.prototype._i18n = i18n 
+
+Vue.prototype.$eventNo = 68;
+Vue.prototype.$localApiDomain = 'http://192.168.1.21:89';
+Vue.prototype.$apiDomain = 'https://socialapi.traveldaily.cn';
+Vue.prototype._i18n = i18n;
 
 App.mpType = 'app'
 

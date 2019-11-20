@@ -33,7 +33,6 @@ export default {
         },
         "loginBtn": "Log in",
         "loginTip": "Call 0086 20-2882 9750 or email register@traveldaily.cn if you can't log in.",
-		
 		otherLogin: "Other Login",
 		wechatLoginTip: "*Please register for the event before logging in with the same mobile/email."
     },
