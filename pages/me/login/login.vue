@@ -49,16 +49,16 @@
 				<view class="wechatLoginTip">
 					{{ $t('login.wechatLoginTip') }}
 				</view>
-			</view>
-			<view class="copyright">
-				<text class="copyrightTxt">
-					Copyright 2006-2019 TravelDaily All Rights Reserved
-				</text>
-				<text class="copyrightTxt">
-					环球旅讯 版权所有
-				</text>
-			</view>
+			</view>			
 		<!-- #endif -->
+		<view class="copyright">
+			<text class="copyrightTxt">
+				Copyright 2006-2019 TravelDaily All Rights Reserved
+			</text>
+			<text class="copyrightTxt">
+				环球旅讯 版权所有
+			</text>
+		</view>
 	</view>
 </template>
 
