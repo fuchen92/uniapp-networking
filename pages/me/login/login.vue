@@ -16,10 +16,10 @@
 		</view>
 		<view class="loginBox">
 			<view class="formGroup">
-				<input class="formInput" type="text" :placeholder="$t('login.accountPlaceholder')" placeholder-class="placeholderClass" v-model.trim="account">
+				<input class="formInput" type="text" :placeholder="$t('login.accountPlaceholder')" placeholder-class="placeholderClass" :focus="accountFocus" v-model.trim="account">
 			</view>
 			<view class="formGroup clear">
-				<input class="formInput valicodeInput lt" type="text" :placeholder="$t('login.valicodePlaceholder')" placeholder-class="placeholderClass" maxlength="6" v-model.trim="valicode" />
+				<input class="formInput valicodeInput lt" type="text" :placeholder="$t('login.valicodePlaceholder')" placeholder-class="placeholderClass" :focus="valicodeFocus" maxlength="6" v-model.trim="valicode" />
 				<button class="getValicode rt" @click="getValicode" :disabled="isGettedCode">
 					{{ isGettedCode ? (countDown + "s") : $t("login.getCode[" + valicodeTipIndex + "]") }}
 				</button>
@@ -69,7 +69,9 @@
 			return {
 				lang: app.globalData.lang,
 				account: "",
+				accountFocus: false,
 				valicode: "",
+				valicodeFocus: false,
 				isGettedCode: false,
 				countDown: 59,
 				valicodeTipIndex: 0,
@@ -97,21 +99,24 @@
 					case "account":
 						if(account == "" || account.length == 0) {
 							this.hasError = true;
-							this.$refs.account.focus();
+							this.accountFocus = true;
+							// this.$refs.account.focus();
 							return false;
 						}
 						if(account.indexOf("@") != -1) {
 							if(!/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(account)) {
 								this.errType = "emailErr";
 								this.hasError = true;
-								this.$refs.account.focus();
+								this.accountFocus = true;
+								// this.$refs.account.focus();
 								return false;
 							}
 						} else {
 							if(!/(^(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$)|(^09\d{8}$)|(^[569]\d{7}$)|(^(66|62)\d{6}$)/.test(account)) {
 								this.errType = "mobileErr";
 								this.hasError = true;
-								this.$refs.account.focus();
+								this.accountFocus = true;
+								// this.$refs.account.focus();
 								return false;
 							}
 						}
@@ -120,12 +125,14 @@
 						if(valicode == "" || valicode.length == 0) {
 							this.errType = "valicodeEmpty";
 							this.hasError = true;
-							this.$refs.valicode.focus();
+							this.valicodeFocus = true;
+							// this.$refs.valicode.focus();
 							return false;
 						} else if(!/\d{6}/.test(valicode)) {
 							this.errType = "valicodeErr";
 							this.hasError = true;
-							this.$refs.valicode.focus();
+							this.valicodeFocus = true;
+							// this.$refs.valicode.focus();
 							return false;
 						}
 						break;
@@ -133,7 +140,53 @@
 				return true;
 			},
 			getValicode: function() {
-				
+				if(this.isGettedCode == true) {
+					return;
+				}
+				if(this._validate("account")) {
+					this.hasError = false;
+					this.isGettedCode = true;
+					this.valicodeFocus = true;
+					
+					this.timer = setInterval(() => {
+						this.countDown--;
+						if(this.countDown <= 0) {
+							this.countDown = 59;
+							clearInterval(this.timer);
+							this.timer = null;
+							this.isGettedCode = false;
+							this.valicodeTipIndex = 1;
+						}
+					}, 1000);
+					
+					// uni.request({
+					// 	url: this.$apiDomain + '/Home/SendCode',
+					// 	data: {
+					// 		eventNo: this.$eventNo,
+					// 		loginName: this.account,
+					// 		lang: this.lang
+					// 	},
+					// 	method: "POST"
+					// }).then(data => {
+					// 	var [err, res] = data;
+					// 	console.log(data);
+					// 	if(res.data.Code == 0) {
+					// 		this.timer = setInterval(() => {
+					// 			this.countDown--;
+					// 			if(this.countDown <= 0) {
+					// 				this.countDown = 59;
+					// 				clearInterval(this.timer);
+					// 				this.timer = null;
+					// 				this.isGettedCode = false;
+					// 				this.valicodeTipIndex = 1;
+					// 			}
+					// 		}, 1000);
+					// 	} else if(res.data.Code != 0) {
+					// 		console.log(res.data.Message)
+					// 	}
+					// })
+					
+				}
 			},
 			submitLogin: function() {
 				console.log(this.account)

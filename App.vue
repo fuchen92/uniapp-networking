@@ -1,4 +1,5 @@
 <script>
+	import { mapActions, mapState, mapMutations } from "vuex";
 	export default {
 		// data: function() {
 		// 	return {
@@ -6,17 +7,30 @@
 		// 		token: "111222333"
 		// 	}
 		// },
-		// computed: {
-		// 	computedData: function() {
-		// 		return "这是 computed 选项中的字段，证明 App.vue 可以添加 computed 选项"
-		// 	}
-		// },
+		computed: {
+			...mapState({
+				token: state => state.Token
+			}),
+			computedData: function() {
+				return "这是 computed 选项中的字段，证明 App.vue 可以添加 computed 选项"
+			}
+		},
+		watch: {
+			token: function() {
+				console.log("这是 watch 选项中的方法，证明 App.vue 可以添加 watch 选项")
+				console.log("token 变化了，初始化 socket")
+				if(this.token != "" || this.token != null) {
+					this.initSocket(this.token);
+				}
+			}
+		},
 		methods: {
 			// print: function() {
 			// 	console.log("这是 methods 选项里面的方法，证明 App.vue 可以添加 methods 选项")
 			// },
 			initSocket: function(token) {
 				console.log("初始化 socket 链接")
+				// console.log(this)
 				// const socketUrl = `wss://socialapi.traveldaily.cn/WebSocket/Index?token=${encodeURIComponent(token)}`;
 				this.socket = {
 					onOpen: function() {},
@@ -28,13 +42,12 @@
 		},
 		onLaunch: function() {
 			// this.print();
-			this.initSocket();
+			// this.initSocket();
 			console.log('App Launch')
-			console.log("在App Launch方法内初始化socket链接")
+			// console.log("在App Launch方法内初始化socket链接")
 		},
 		onShow: function() {
-			console.log(this)
-			console.log(this.computedData)
+			// console.log(this)
 			// console.log("data 选项里面的 token： " + this.token)
 			console.log('App Show')
 		},
@@ -53,7 +66,7 @@
 
 <style>
 	/*每个页面公共css */
-	:root {
+	page {
 		--themeColor: #c30d23;
 	}
 	page {
@@ -65,6 +78,15 @@
 		margin: 0;
 		padding: 0;
 		outline: 0;
+	}
+	button:after {
+		border: 0px;
+	}
+	input[disabled], button[disabled] {
+		border: 0px;
+	    background-color: #999 !important;
+	    cursor: not-allowed !important;
+		color: #FFFFFF !important;
 	}
 	input, textarea {
 		border: 2rpx solid #bfbfbf;
