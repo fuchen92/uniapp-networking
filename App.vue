@@ -9,7 +9,8 @@
 		// },
 		computed: {
 			...mapState({
-				token: state => state.Token
+				token: state => state.Token,
+				name: state => state.Name
 			}),
 			computedData: function() {
 				return "这是 computed 选项中的字段，证明 App.vue 可以添加 computed 选项"
@@ -32,13 +33,29 @@
 				console.log("初始化 socket 链接")
 				// console.log(this)
 				// const socketUrl = `wss://socialapi.traveldaily.cn/WebSocket/Index?token=${encodeURIComponent(token)}`;
-				this.socket = {
-					onOpen: function() {},
-					onSend: function() {},
-					onMessage: function() {},
-					onClose: function() {}
-				}
-			}
+				// const socketUrl = `wss://socialapi.traveldaily.cn/WebSocket/Index?token=${encodeURIComponent(token)}`
+				this.socket = new WebSocket(socketUrl);
+				this.socket.onopen = this.onOpen;
+				this.socket.onmessage = this.onMessage;
+				this.socket.onerror = this.onError;
+				this.socket.onclose = this.onClose;
+			},
+			onOpen(){ //连接建立之后执行send方法发送数据
+				console.log("socket链接打开");
+			},
+			onError(){//连接建立失败重连
+				this.initSocket(this.token);
+			},
+			onMessage(e){ //数据接收
+				const socketData = JSON.parse(e.data);
+				console.log(socketData)
+			},
+			socketSend(Data){//数据发送
+				this.socket.send(Data);
+			},
+			onClose(e){  //关闭
+				console.log('断开连接',e);
+			},
 		},
 		onLaunch: function() {
 			// this.print();

@@ -5,15 +5,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-		Token: uni.getStorageSync('token') || ""
+		Token: uni.getStorageSync('token') || "",
     },
 	mutations: {
 		login(state, token) {
-			state.Token = token;
+			state.Token = "agadsfasdf";
+			// state.Token = token;
 		},
 		logout(state) {
 			state.Token = "";
-		}
+		},
 	}
 });
 

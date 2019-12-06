@@ -63,6 +63,7 @@
 </template>
 
 <script>
+	import { mapActions, mapState, mapMutations } from "vuex";
 	const app = getApp();
 	export default {
 		data() {
@@ -84,6 +85,9 @@
 			
 		},
 		methods: {
+			...mapMutations([
+				"login"
+			]),
 			chooseLanguage: function(event) {
 				var lang = event.detail.value;
 				this.lang = lang;
@@ -189,8 +193,10 @@
 				}
 			},
 			submitLogin: function() {
-				console.log(this.account)
-				console.log(this.valicode)
+				console.log(this)
+				this.login();
+				// console.log(this.account)
+				// console.log(this.valicode)
 			}
 		},
 		onLoad: function() {
